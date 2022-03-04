@@ -1,4 +1,4 @@
-﻿ #nullable disable
+﻿#nullable disable
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +23,7 @@ namespace Proj_NetAtlas.Context
         // GET: Membres
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Membre.ToListAsync());
+            return View(await _context.Membres.ToListAsync());
         }
 
         // GET: Membres/Details/5
@@ -34,7 +34,7 @@ namespace Proj_NetAtlas.Context
                 return NotFound();
             }
 
-            var membre = await _context.Membre
+            var membre = await _context.Membres
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (membre == null)
             {
@@ -55,7 +55,7 @@ namespace Proj_NetAtlas.Context
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nom,Prenom,Ad_email")] Membre membre)
+        public async Task<IActionResult> Create([Bind("Id,Nom,Prenom,Ad_email,MotPasse")] Membre membre)
         {
             if (ModelState.IsValid)
             {
@@ -74,7 +74,7 @@ namespace Proj_NetAtlas.Context
                 return NotFound();
             }
 
-            var membre = await _context.Membre.FindAsync(id);
+            var membre = await _context.Membres.FindAsync(id);
             if (membre == null)
             {
                 return NotFound();
@@ -87,7 +87,7 @@ namespace Proj_NetAtlas.Context
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Prenom,Ad_email")] Membre membre)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Prenom,Ad_email,MotPasse")] Membre membre)
         {
             if (id != membre.Id)
             {
@@ -125,7 +125,7 @@ namespace Proj_NetAtlas.Context
                 return NotFound();
             }
 
-            var membre = await _context.Membre
+            var membre = await _context.Membres
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (membre == null)
             {
@@ -140,15 +140,15 @@ namespace Proj_NetAtlas.Context
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var membre = await _context.Membre.FindAsync(id);
-            _context.Membre.Remove(membre);
+            var membre = await _context.Membres.FindAsync(id);
+            _context.Membres.Remove(membre);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool MembreExists(int id)
         {
-            return _context.Membre.Any(e => e.Id == id);
+            return _context.Membres.Any(e => e.Id == id);
         }
     }
 }
